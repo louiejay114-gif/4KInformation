@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: Arial;
+        background: #1b2140;
+        color: #fff;
+      }
+
+
+      .wrap {
+        width: 92%;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding-top: 8px;
+      }
+
+      .ph {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 22px;
+        background: rgba(0, 0, 0, 0.42);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        transition: 0.25s;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .ph:hover {
+        transform: scale(1.03);
+      }
+
+      .top {
+        height: 150px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 300px 1fr 430px;
+        gap: 24px;
+        margin-top: 24px;
+        align-items: start;
+      }
+
+      .left {
+        height: 560px;
+      }
+
+      .mid {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+
+      .small {
+        height: 170px;
+      }
+
+      .long {
+        height: 150px;
+        width: calc(100% + 454px);
+      }
+
+      .text {
+        font-size: 28px;
+        padding: 10px;
+      }
+
+      .bottom {
+        display: grid;
+        grid-template-columns: 1fr 430px;
+        gap: 24px;
+        margin-top: 24px;
+      }
+
+      .copy {
+        background: rgba(0, 0, 0, 0.45);
+        padding: 25px;
+        border-radius: 20px;
+        font-size: 22px;
+      }
+
+      section {
+        padding: 0 0 50px;
+        scroll-margin-top: 8px;
+      }
+
+      section#home {
+        min-height: calc(100vh - 70px);
+      }
+
+      section#works {
+        padding-top: 0;
+        min-height: calc(100vh - 12px);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+      }
+
+      .carousel {
+        display: grid;
+        grid-template-columns: 70px 1fr 70px;
+        align-items: center;
+        gap: 20px;
+        min-height: 560px;
+      }
+
+      .media {
+        height: 420px;
+        font-size: 70px;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.45s ease, opacity 0.45s ease;
+        background: rgba(0, 0, 0, 0.3);
+      }
+
+      .media.is-changing {
+        opacity: 0;
+        transform: translateX(18px) scale(0.98);
+      }
+
+      .carousel-caption {
+        transition: opacity 0.35s ease, transform 0.35s ease;
+      }
+
+      .carousel-caption.is-changing {
+        opacity: 0;
+        transform: translateX(10px);
+      }
+
+      .arrow {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: none;
+        font-size: 28px;
+        cursor: pointer;
+      }
+
+      .dots {
+        text-align: center;
+        margin: 20px;
+      }
+
+      .dot {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #666;
+        margin: 5px;
+      }
+
+      .active {
+        background: #fff;
+      }
+
+      .contact {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      .panel {
+        background: rgba(0, 0, 0, 0.45);
+        border-radius: 20px;
+        padding: 25px;
+      }
+
+      .carousel-panel {
+        position: relative;
+        overflow: hidden;
+        padding: 0;
+        background: rgba(0, 0, 0, 0.42);
+      }
+
+      .carousel-track {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .carousel-slide {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 36px;
+        font-weight: bold;
+        color: #fff;
+        opacity: 0;
+        transform: translateX(30px) scale(0.98);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-blend-mode: overlay;
+        object-fit: cover;
+      }
+
+      .carousel-slide.active {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+
+      .carousel-slide:not(.active) {
+        pointer-events: none;
+      }
+
+      .carousel-slide:nth-child(1) {
+        background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.45)), url('images/backgroundMain.jfif');
+      }
+
+      .carousel-slide:nth-child(2) {
+        background-image: linear-gradient(135deg, rgba(53, 70, 146, 0.35), rgba(0, 0, 0, 0.45)), url('images/backgroundMain.jfif');
+      }
+
+      .carousel-slide:nth-child(3) {
+        background-image: linear-gradient(135deg, rgba(110, 74, 146, 0.35), rgba(0, 0, 0, 0.45)), url('images/backgroundMain.jfif');
+      }
+
+      .ph img,
+      .ph video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .carousel-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        border: none;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        cursor: pointer;
+        backdrop-filter: blur(6px);
+        transition: background 0.25s ease, transform 0.25s ease;
+      }
+
+      .carousel-button:hover {
+        background: rgba(255, 255, 255, 0.35);
+        transform: translateY(-50%) scale(1.05);
+      }
+
+      .carousel-button.prev {
+        left: 10px;
+      }
+
+      .carousel-button.next {
+        right: 10px;
+      }
+
+      .section-nav {
+        display: flex;
+        justify-content: flex-start;
+        gap: 12px;
+        margin: 0 0 18px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.22);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        width: fit-content;
+      }
+
+      .works-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+
+      .works-header h2,
+      .works-header p {
+        margin: 0;
+      }
+
+      .section-nav a {
+        color: #fff;
+        text-decoration: none;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        transition: background 0.25s ease, transform 0.25s ease;
+        font-size: 14px;
+      }
+
+      .section-nav a:hover {
+        background: rgba(255, 255, 255, 0.18);
+        transform: translateY(-1px);
+      }
+
+      .Fourk{
+        font-size: 60px;
+      }
+
+      .reallySmall{
+        font-size: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class='wrap'>
+      <section id='home'>
+        <div class='ph top'>
+          <div style='display:flex;justify-content:space-between;align-items:center;width:100%;padding:0 24px;'>
+            <span><div class='Fourk'><b>4K</b></div></span>
+            <div style='display:flex;gap:10px;'>
+              <a href='#home' style='color:#fff;text-decoration:none;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);'>Home</a>
+              <a href='#works' style='color:#fff;text-decoration:none;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);'>Works</a>
+              <a href='#contact' style='color:#fff;text-decoration:none;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);'>Contact</a>
+            </div>
+          </div>
+        </div>
+
+        <div class='grid'>
+          <div class='ph left'>02</div>
+
+          <div class='mid'>
+            <div class='ph small'>03</div>
+            <div class='ph long' style='margin-top:24px;height:150px;'>04</div>
+          </div>
+
+          <div class='text'>
+            We are 4k Studios<br><br><div class='reallySmall'>A small indie group that creates nieche, high quality content for the community. We are currently working on a few projects, and we will be releasing them soon. Stay tuned for more updates!</div>
+          </div>
+        </div>
+
+        <div class='bottom'>
+          <div class='copy' id='commentText'>A short comment about the first picture.</div>
+
+          <div class='ph carousel-panel' style='height:190px' id='photoCarousel'>
+            <div class='carousel-track'>
+              <div class='carousel-slide active' data-comment='A short comment about the first picture.'>
+                <span>01</span>
+              </div>
+              <div class='carousel-slide' data-comment='A second note for the next picture.'>
+                <span>02</span>
+              </div>
+              <div class='carousel-slide' data-comment='A third thought for the final preview.'>
+                <span>03</span>
+              </div>
+            </div>
+
+            <button class='carousel-button prev' type='button' aria-label='Previous slide'>&lt;</button>
+            <button class='carousel-button next' type='button' aria-label='Next slide'>&gt;</button>
+          </div>
+        </div>
+      </section>
+
+      <section id='works'>
+        <div class='works-header'>
+          <div>
+            <h2>Here are some of our works</h2>
+            <p>best quality works we've made</p>
+          </div>
+
+          <div class='section-nav'>
+            <a href='#home'>Home</a>
+            <a href='#contact'>Contact</a>
+          </div>
+        </div>
+
+        <div class='carousel'>
+          <button class='arrow' id='prev'>&lt;</button>
+
+          <div>
+            <div class='ph media' id='media'>01</div>
+            <div class='dots' id='dots'></div>
+            <h3 class='carousel-caption' id='carouselTitle' align='center'>------</h3>
+            <p class='carousel-caption' id='carouselDescription' align='center'>napaka galing</p>
+          </div>
+          
+          <button class='arrow' id='next'>&gt;</button>
+        </div>
+      </section>
+
+      <section id='contact'>
+        <div class='section-nav'>
+          <a href='#home'>Home</a>
+          <a href='#works'>Works</a>
+        </div>
+
+        <div class='contact'>
+          <div class='panel'>
+            <h2>Contact Us</h2>
+            <p>We are an international based group of professionals.</p>
+            <p>Email: 4Kupals@gmail.com</p>
+            <p>Facebook: ewan</p>
+            <p>Instagram: ewan</p>
+          </div>
+
+          <div class='ph media' style='height:300px'>mukha ni maryel dito</div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      let i = 0;
+      let total = 6;
+      let m = document.getElementById('media');
+      let dots = document.getElementById('dots');
+      let title = document.getElementById('carouselTitle');
+      let description = document.getElementById('carouselDescription');
+      let slideTitles = [
+        'School Projects',
+        'Another maangas na project',
+        'More works',
+        'Recent workes',
+        'Featured work',
+        'Upcoming work'
+      ];
+      let slideDescriptions = [
+        'Paragraph here.',
+        'A second short description.',
+        'A third short description.',
+        'A fourth short description.',
+        'A fifth short description.',
+        'A sixth short description.'
+      ];
+
+      function render() {
+        m.classList.remove('is-changing');
+        title.classList.remove('is-changing');
+        description.classList.remove('is-changing');
+
+        void m.offsetWidth;
+
+        m.classList.add('is-changing');
+        title.classList.add('is-changing');
+        description.classList.add('is-changing');
+
+        setTimeout(() => {
+          m.textContent = String(i + 1).padStart(2, '0');
+          title.textContent = slideTitles[i % slideTitles.length];
+          description.textContent = slideDescriptions[i % slideDescriptions.length];
+          m.classList.remove('is-changing');
+          title.classList.remove('is-changing');
+          description.classList.remove('is-changing');
+        }, 180);
+
+        dots.innerHTML = '';
+
+        for (let x = 0; x < total; x++) {
+          let d = document.createElement('span');
+          d.className = 'dot' + (x == i ? ' active' : '');
+          d.onclick = () => {
+            i = x;
+            render();
+          };
+          dots.appendChild(d);
+        }
+      }
+
+      prev.onclick = () => {
+        i = (i - 1 + total) % total;
+        render();
+      };
+
+      next.onclick = () => {
+        i = (i + 1) % total;
+        render();
+      };
+
+      document.onkeydown = e => {
+        if (e.key === 'ArrowLeft') prev.click();
+        if (e.key === 'ArrowRight') next.click();
+      };
+
+      render();
+
+      document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', event => {
+          const targetId = link.getAttribute('href');
+          const target = document.querySelector(targetId);
+
+          if (!target) {
+            return;
+          }
+
+          event.preventDefault();
+
+          const offset = targetId === '#works' ? 10 : 40;
+          const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+
+          window.scrollTo({
+            top: top,
+            behavior: 'smooth'
+          });
+        });
+      });
+
+      const photoCarousel = document.getElementById('photoCarousel');
+      const commentText = document.getElementById('commentText');
+      const slides = Array.from(photoCarousel.querySelectorAll('.carousel-slide'));
+      const prevButton = photoCarousel.querySelector('.carousel-button.prev');
+      const nextButton = photoCarousel.querySelector('.carousel-button.next');
+      let slideIndex = 0;
+
+      function updatePhotoSlide(index) {
+        slides.forEach((slide, slideNumber) => {
+          slide.classList.toggle('active', slideNumber === index);
+        });
+
+        if (commentText) {
+          commentText.textContent = slides[index].dataset.comment || '';
+        }
+      }
+
+      function showNextSlide() {
+        slideIndex = (slideIndex + 1) % slides.length;
+        updatePhotoSlide(slideIndex);
+      }
+
+      function showPrevSlide() {
+        slideIndex = (slideIndex - 1 + slides.length) % slides.length;
+        updatePhotoSlide(slideIndex);
+      }
+
+      prevButton.addEventListener('click', event => {
+        event.stopPropagation();
+        showPrevSlide();
+      });
+
+      nextButton.addEventListener('click', event => {
+        event.stopPropagation();
+        showNextSlide();
+      });
+
+      photoCarousel.addEventListener('click', event => {
+        if (event.target.closest('.carousel-button')) {
+          return;
+        }
+        showNextSlide();
+      });
+
+      let photoTimer = setInterval(showNextSlide, 5000);
+
+      photoCarousel.addEventListener('mouseenter', () => clearInterval(photoTimer));
+      photoCarousel.addEventListener('mouseleave', () => {
+        photoTimer = setInterval(showNextSlide, 5000);
+      });
+
+      updatePhotoSlide(0);
+    </script>
+  </body>
+</html>
