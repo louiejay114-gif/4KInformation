@@ -3,6 +3,14 @@
   <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script>
+      (function () {
+        const mobile = /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent);
+        if (mobile) {
+          window.location.replace('mobile.html');
+        }
+      })();
+    </script>
 
     <style>
       @font-face {
