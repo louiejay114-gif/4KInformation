@@ -12,8 +12,13 @@
       body {
         margin: 0;
         font-family: Arial;
-        background: #1b2140;
         color: #fff;
+        background: #1b2140;
+        background-image: linear-gradient(rgba(11, 15, 33, 0.72), rgba(11, 15, 33, 0.72)), url('images/backgroundMain.jfif');
+        background-size: cover;
+        background-position: center center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
       }
 
 
@@ -22,6 +27,8 @@
         max-width: 1400px;
         margin: 0 auto;
         padding-top: 8px;
+        position: relative;
+        z-index: 1;
       }
 
       .ph {
@@ -308,6 +315,18 @@
         transform: translateY(-1px);
       }
 
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background: inherit;
+        background-size: cover;
+        background-position: center center;
+        transform: translateY(calc(var(--scroll-y, 0px) * 0.08));
+        z-index: -1;
+        pointer-events: none;
+      }
+
       .Fourk{
         font-size: 60px;
       }
@@ -415,6 +434,10 @@
     </div>
 
     <script>
+      window.addEventListener('scroll', () => {
+        document.documentElement.style.setProperty('--scroll-y', `${window.scrollY}px`);
+      });
+
       let i = 0;
       let total = 6;
       let m = document.getElementById('media');
