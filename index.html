@@ -5,13 +5,48 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
 
     <style>
+      @font-face {
+        font-family: 'HelveticaNeueLight';
+        src: url('Fonts/HelveticaNeueLight.otf') format('opentype');
+        font-weight: 300;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: 'HelveticaNeueRoman';
+        src: url('Fonts/HelveticaNeueRoman.otf') format('opentype');
+        font-weight: 400;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: 'HelveticaNeueMedium';
+        src: url('Fonts/HelveticaNeueMedium.otf') format('opentype');
+        font-weight: 500;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: 'HelveticaNeueBold';
+        src: url('Fonts/HelveticaNeueBold.otf') format('opentype');
+        font-weight: 700;
+        font-style: normal;
+      }
+
+      @font-face {
+        font-family: 'HelveticaNeueHeavy';
+        src: url('Fonts/HelveticaNeueHeavy.otf') format('opentype');
+        font-weight: 800;
+        font-style: normal;
+      }
+
       html {
         scroll-behavior: smooth;
       }
 
       body {
         margin: 0;
-        font-family: Arial;
+        font-family: 'HelveticaNeueLight', Arial, sans-serif;
         color: #fff;
         background: #1b2140;
         background-image: linear-gradient(rgba(11, 15, 33, 0.72), rgba(11, 15, 33, 0.72)), url('images/backgroundMain.jfif');
@@ -43,6 +78,13 @@
         position: relative;
       }
 
+      .top {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.45)), url('images/mainBack2.jpg');
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+      }
+
       .ph:hover {
         transform: scale(1.03);
       }
@@ -53,47 +95,67 @@
 
       .grid {
         display: grid;
-        grid-template-columns: 300px 1fr 430px;
+        grid-template-columns: 300px minmax(0, 1fr) 430px;
+        grid-template-rows: auto auto auto;
         gap: 24px;
         margin-top: 24px;
         align-items: start;
       }
 
       .left {
-        height: 560px;
-      }
-
-      .mid {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
+        height: 600px;
+        grid-column: 1;
+        grid-row: 1 / span 3;
       }
 
       .small {
         height: 170px;
+        grid-column: 2;
+        grid-row: 1;
       }
 
       .long {
         height: 150px;
-        width: calc(100% + 454px);
+        width: 100%;
+        grid-column: 2 / span 2;
+        grid-row: 2;
       }
 
       .text {
+        font-family: 'HelveticaNeueRoman', Arial, sans-serif;
         font-size: 28px;
         padding: 10px;
+        grid-column: 3;
+        grid-row: 1;
       }
 
       .bottom {
         display: grid;
-        grid-template-columns: 1fr 430px;
-        gap: 24px;
-        margin-top: 24px;
+        grid-template-columns: minmax(0, 1fr) 430px;
+        gap: 12px;
+        margin-top: 0;
+        grid-column: 2 / span 2;
+        grid-row: 3;
+        width: 100%;
+        align-self: start;
+      }
+
+      .bottom .copy {
+        min-width: 0;
+        width: 100%;
+      }
+
+      .bottom .carousel-panel {
+        width: 430px;
+        height: 190px;
+        max-width: 100%;
       }
 
       .copy {
         background: rgba(0, 0, 0, 0.45);
         padding: 25px;
         border-radius: 20px;
+        font-family: 'HelveticaNeueLight', Arial, sans-serif;
         font-size: 22px;
       }
 
@@ -138,6 +200,7 @@
 
       .carousel-caption {
         transition: opacity 0.35s ease, transform 0.35s ease;
+        font-family: 'HelveticaNeueMedium', Arial, sans-serif;
       }
 
       .carousel-caption.is-changing {
@@ -182,6 +245,7 @@
         background: rgba(0, 0, 0, 0.45);
         border-radius: 20px;
         padding: 25px;
+        font-family: 'HelveticaNeueLight', Arial, sans-serif;
       }
 
       .carousel-panel {
@@ -299,6 +363,14 @@
         margin: 0;
       }
 
+      .works-header h2 {
+        font-family: 'HelveticaNeueBold', Arial, sans-serif;
+      }
+
+      .works-header p {
+        font-family: 'HelveticaNeueLight', Arial, sans-serif;
+      }
+
       .section-nav a {
         color: #fff;
         text-decoration: none;
@@ -307,6 +379,7 @@
         background: rgba(255, 255, 255, 0.08);
         border: 1px solid rgba(255, 255, 255, 0.12);
         transition: background 0.25s ease, transform 0.25s ease;
+        font-family: 'HelveticaNeueMedium', Arial, sans-serif;
         font-size: 14px;
       }
 
@@ -332,7 +405,29 @@
       }
 
       .reallySmall{
-        font-size: 20px;
+        font-size: 15px;
+        line-height: 1.5;
+        margin-top: 8px;
+      }
+
+      .Fourk {
+        font-family: 'HelveticaNeueHeavy', Arial, sans-serif;
+        font-size: 40px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+      }
+
+      .hero-title {
+        font-family: 'HelveticaNeueHeavy', Arial, sans-serif;
+        font-size: 42px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        line-height: 1.1;
+        margin: 0 0 10px;
+        text-transform: uppercase;
+        text-shadow: 0 2px 16px rgba(0, 0, 0, 0.55);
       }
     </style>
   </head>
@@ -342,7 +437,7 @@
       <section id='home'>
         <div class='ph top'>
           <div style='display:flex;justify-content:space-between;align-items:center;width:100%;padding:0 24px;'>
-            <span><div class='Fourk'><b>4K STUDIOS</b></div></span>
+            <span><div class='Fourk'>4K STUDIOS</div></span>
             <div style='display:flex;gap:10px;'>
               <a href='#home' style='color:#fff;text-decoration:none;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);'>Home</a>
               <a href='#works' style='color:#fff;text-decoration:none;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);'>Works</a>
@@ -353,35 +448,33 @@
 
         <div class='grid'>
           <div class='ph left'>02</div>
-
-          <div class='mid'>
-            <div class='ph small'>03</div>
-            <div class='ph long' style='margin-top:24px;height:150px;'>04</div>
-          </div>
+          <div class='ph small'>03</div>
+          <div class='ph long' style='height:150px;'>04</div>
 
           <div class='text'>
-            We are 4k Studios<br><br><div class='reallySmall'>A small indie group that creates nieche, high quality content for the community. We are currently working on a few projects, and we will be releasing them soon. Stay tuned for more updates!</div>
+            <div class='hero-title'>We are 4K STUDIOS</div>
+            <div class='reallySmall'>A small indie group that creates niche, high-quality content for the community. We are currently working on a few projects, and we will be releasing them soon. Stay tuned for more updates!</div>
           </div>
-        </div>
 
-        <div class='bottom'>
-          <div class='copy' id='commentText'>A short comment about the first picture.</div>
+          <div class='bottom'>
+            <div class='copy' id='commentText'>A short comment about the first picture.</div>
 
-          <div class='ph carousel-panel' style='height:190px' id='photoCarousel'>
-            <div class='carousel-track'>
-              <div class='carousel-slide active' data-comment='A short comment about the first picture.'>
-                <span>01</span>
+            <div class='ph carousel-panel' id='photoCarousel'>
+              <div class='carousel-track'>
+                <div class='carousel-slide active' data-comment='A short comment about the first picture.'>
+                  <span>01</span>
+                </div>
+                <div class='carousel-slide' data-comment='A second note for the next picture.'>
+                  <span>02</span>
+                </div>
+                <div class='carousel-slide' data-comment='A third thought for the final preview.'>
+                  <span>03</span>
+                </div>
               </div>
-              <div class='carousel-slide' data-comment='A second note for the next picture.'>
-                <span>02</span>
-              </div>
-              <div class='carousel-slide' data-comment='A third thought for the final preview.'>
-                <span>03</span>
-              </div>
+
+              <button class='carousel-button prev' type='button' aria-label='Previous slide'>&lt;</button>
+              <button class='carousel-button next' type='button' aria-label='Next slide'>&gt;</button>
             </div>
-
-            <button class='carousel-button prev' type='button' aria-label='Previous slide'>&lt;</button>
-            <button class='carousel-button next' type='button' aria-label='Next slide'>&gt;</button>
           </div>
         </div>
       </section>
@@ -389,8 +482,8 @@
       <section id='works'>
         <div class='works-header'>
           <div>
-            <h2>Here are some of our works</h2>
-            <p>best quality works we've made</p>
+            <h2 style='font-family: "HelveticaNeueHeavy", Arial, sans-serif;'>Here are some of our works</h2>
+            <p style='font-family: "HelveticaNeueLight", Arial, sans-serif;'>best quality works we've made</p>
           </div>
 
           <div class='section-nav'>
@@ -421,11 +514,11 @@
 
         <div class='contact'>
           <div class='panel'>
-            <h2>Contact Us</h2>
-            <p>We are an international based group of professionals.</p>
-            <p>Email: 4Kupals@gmail.com</p>
-            <p>Facebook: <a href='https://www.facebook.com/profile.php?id=61591999260023' target='_blank' rel='noopener noreferrer' style='color:#fff;'>View Our Facebook</a></p>
-            <p>Instagram: ewan</p>
+            <h2 style='font-family: "HelveticaNeueHeavy", Arial, sans-serif;'>Contact Us</h2>
+            <p style='font-family: "HelveticaNeueLight", Arial, sans-serif;'>We are an international based group of professionals.</p>
+            <p style='font-family: "HelveticaNeueLight", Arial, sans-serif;'>Email: 4Kupals@gmail.com</p>
+            <p style='font-family: "HelveticaNeueLight", Arial, sans-serif;'>Facebook: <a href='https://www.facebook.com/profile.php?id=61591999260023' target='_blank' rel='noopener noreferrer' style='color:#fff;'>View Facebook profile</a></p>
+            <p style='font-family: "HelveticaNeueLight", Arial, sans-serif;'>Instagram: ewan</p>
           </div>
 
           <div class='ph media' style='height:300px'>mukha ni maryel dito</div>
